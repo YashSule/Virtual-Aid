@@ -1,22 +1,23 @@
 const express = require('express')
-const mongoose = require('mongoose')
-const url='mongodb://localhost/SocietyDBex'
+const mongoose= require('mongoose')
+const url='mongodb://localhost/HospitalDBex'
 const app = express()
 
 mongoose.connect(url,{
     useNewUrlParser:true,
 })
+
 const con = mongoose.connection
 
 con.on('open',()=>{
-    console.log("connected......")
+    console.log("connected.......")
 })
 
 app.use(express.json())
 
-const residentRouters = require('./routes/residents')
-app.use('/residents',residentRouters)
+const userRouters= require('./routes/users')
+app.use('/users',userRouters)
 
-app.listen(9000,()=>{
-    console.log("Server Started......")
+app.listen(7000,()=>{
+    console.log("Server Started")
 })
