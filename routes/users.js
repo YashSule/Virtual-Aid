@@ -82,6 +82,28 @@ router.route("/login").post((req,res,next)=>{
             err:err
         })
     })
-})
+}),
+
+router.patch('/:id',async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+        user.password = req.body.password
+        const a1 = await user.save()
+        res.json(a1)
+        console.log("Updated")
+    } catch(err){
+        res.status(400).json("Error : "+err)
+    }
+}),
+
+router.get('/',async(req,res) => {
+    try {
+        const users = await User.find()
+        res.json(users)
+    } catch (err) {
+        console.log("Error : "+err)
+    } 
+
+ })
 
 module.exports = router
